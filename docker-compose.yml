@@ -14,7 +14,7 @@ services:
             - "1883:1883"
             - "9001:9001"
     gost-db:
-        image: geodan/gost-db
+        image: waverider93/gost-db-timescale
         volumes:
             - postgis:/var/lib/postgresql/data
         environment:
