@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     node-red:
         image: nodered/node-red-docker:slim-v8
@@ -21,6 +21,8 @@ services:
             POSTGRES_DB: gost
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
+        ports:
+            - "${gost-db-port:-5432}:5432"
     gost:
         image: geodan/gost
         volumes:
@@ -38,6 +40,7 @@ services:
             - "8080:8080"
         depends_on:
             - gost
+
 volumes:
     postgis: {}
     nodered: {}
