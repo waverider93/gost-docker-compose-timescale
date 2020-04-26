@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
     node-red:
         image: nodered/node-red-docker:slim-v8
@@ -21,6 +21,8 @@ services:
             POSTGRES_DB: gost
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
+        ports:
+            - "${gost-db-port:-5432}:5432"
     gost:
         image: geodan/gost
         volumes:
@@ -39,20 +41,20 @@ services:
         depends_on:
             - gost
 
-      pgadmin:
+    pgadmin:
         container_name: pgadmin_container
         image: dpage/pgadmin4
         environment:
-          PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-          PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
         volumes:
-           - pgadmin:/root/.pgadmin
+            - pgadmin:/root/.pgadmin
         ports:
-          - "${PGADMIN_PORT:-5050}:80"
+            - "${PGADMIN_PORT:-5050}:80"
         networks:
-          - postgres
+            - postgres
         restart: unless-stopped
-
+        
 volumes:
     postgis: {}
     nodered: {}
