@@ -42,7 +42,6 @@ services:
             - gost
 
     pgadmin:
-        container_name: pgadmin_container
         image: dpage/pgadmin4
         environment:
             PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
@@ -51,8 +50,6 @@ services:
             - pgadmin:/root/.pgadmin
         ports:
             - "${PGADMIN_PORT:-5050}:80"
-        networks:
-            - postgres
         restart: unless-stopped
         
 volumes:
@@ -60,3 +57,4 @@ volumes:
     nodered: {}
     gost_conf: {}
     mosquitto_data: {}
+    pgadmin: {}
