@@ -21,8 +21,6 @@ services:
             POSTGRES_DB: gost
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
-        ports:
-            - "${gost-db-port:-5432}:5432"
     gost:
         image: geodan/gost
         volumes:
